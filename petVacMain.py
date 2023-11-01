@@ -14,8 +14,8 @@ perfil = Perfil()
 perfil.criar_perfil(root)
 
 #frame do calendario
-nextimg = tk.PhotoImage(file='next.png')
-pastimg = tk.PhotoImage(file='past.png')
+nextimg = tk.PhotoImage(file='img/next.png')
+pastimg = tk.PhotoImage(file='img/past.png')
 calendario(root,nextimg,pastimg)
 
 #run
