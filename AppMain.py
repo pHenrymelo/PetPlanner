@@ -1,7 +1,6 @@
 from customtkinter import *
 import customtkinter
 from petPerfil import Perfil
-#from petCalendario import Calendario
 from petCalendario import Calendario
 import tkinter as tk
 

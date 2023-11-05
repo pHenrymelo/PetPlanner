@@ -45,10 +45,11 @@ class Calendario(ctk.CTkFrame):
             label_dia.grid(row=2, column=col, sticky='nsew', padx=5, pady=5)
             col += 1
         
-        year_label = ctk.CTkLabel(self, text=self.year, font=('Helverica', 24))
-        year_label.grid(column=1, row=0, pady=15)
-        label_h = ctk.CTkLabel(self, text=self.months_pt[self.month - 1], font=('Helverica', 24), fg_color='#402160', corner_radius=25)
-        label_h.grid(column=1, row=1, pady=5 , sticky="nsew")
+        self.label_h = ctk.CTkLabel(self, text=self.months_pt[self.month - 1], font=('Helverica', 24), fg_color='#402160', corner_radius=25)
+        self.label_h.grid(column=1, row=1, pady=5 , sticky="nsew")
+
+        self.year_label = ctk.CTkLabel(self, text=self.year, font=('Helverica', 24))
+        self.year_label.grid(column=1, row=0, pady=15)
 
         self.update_days()
 
@@ -66,9 +67,10 @@ class Calendario(ctk.CTkFrame):
 
     def select_day(self, button):
         if self.selected_day:
-            self.selected_day.configure(bg='white')
+            self.selected_day.configure(fg_color='#402160')  # Use config para definir o bg_color
         self.selected_day = button
-        self.selected_day.configure(bg='lightblue')
+        self.selected_day.configure(fg_color='#5E17EB')  # Use config para definir o bg_color
+
 
     def update_days(self):
         # Obter o número de dias no mês e o dia da semana do primeiro dia do mês
