@@ -1,7 +1,7 @@
 from customtkinter import *
 import tkinter as tk
 from petPerfil import Perfil
-from petTela import Tela
+from App import App
 
 class Login():
     def __init__(self,permissao=False):
@@ -46,7 +46,7 @@ class Login():
 
 if __name__ == '__main__':
 
-    tela_config = Tela()
+    tela_config = App()
     win = CTk()
     tela_config.tela_configs(win)
 
