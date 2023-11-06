@@ -1,80 +1,69 @@
-import tkinter as tk
-from tkinter import ttk
-from ttkthemes import ThemedStyle
-from PIL import Image, ImageTk, ImageDraw
+import customtkinter
+from PIL import Image,ImageTk, ImageDraw
 
-def round_image(image_path, label):
-    # Carregar a imagem original
-    imagem_original = Image.open(image_path)
-    resized_image = imagem_original.resize((300,300))
+class Perfil(customtkinter.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.grid_propagate(True)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure((0,1,2), weight=1)
+        
+        self.create_rounded_image()
 
-    # Criar uma máscara circular
-    mascara = Image.new("L", (resized_image.width, resized_image.height), 0)
-    draw = ImageDraw.Draw(mascara)
-    draw.ellipse((0, 0, resized_image.width, resized_image.height), fill=255)
+        infos = customtkinter.CTkFrame(master=self, width=250, height=200, fg_color="#402160")
+        infos.grid(row= 1, column = 0, sticky='ns')
+        infos.grid_propagate(False)
+        infos.columnconfigure((0,1),weight=1)
+        infos.rowconfigure((0,1,2,3,4),weight=1)
 
-    # Aplicar a máscara à imagem original
-    imagem_redonda = Image.new("RGBA", (resized_image.width, resized_image.height), (0, 0, 0, 0))
-    imagem_redonda.paste(resized_image, mask=mascara)
+        label_nome = customtkinter.CTkLabel(infos, text='Nome',font=('Helverica', 18))
+        entry_nome = customtkinter.CTkLabel(infos,text='Pepito',justify='right')
 
-    # Converter a imagem para o formato suportado pelo Tkinter
-    imagem_redonda_tk = ImageTk.PhotoImage(imagem_redonda)
+        label_sexo = customtkinter.CTkLabel(infos,text='Sexo',font=('Helverica', 18))
+        entry_sexo = customtkinter.CTkLabel(infos,text='Macho',)
 
-    # Exibir a imagem no label do portraid
-    label.config(image=imagem_redonda_tk)
-    label.image = imagem_redonda_tk  # Garantir que a referência persista
+        label_raca = customtkinter.CTkLabel(infos,text='Raça',font=('Helverica', 18))
+        entry_raca = customtkinter.CTkLabel(infos,text='Gato preto')
 
-def perfil(root):
-    div = tk.Frame(root,width= 350, height=600, borderwidth=10,relief=tk.RIDGE)
-    div.pack_propagate(False)
-    div.pack(side='left',fill='y')
+        label_idade = customtkinter.CTkLabel(infos,text='Idade',font=('Helverica', 18))
+        entry_idade = customtkinter.CTkLabel(infos,text='3')
 
-    portrait = tk.Label(div, background='#f2762e')
-    portrait.pack(pady=10)
-    round_image("img/jinx.jpg", portrait)
+        label_peso = customtkinter.CTkLabel(infos,text='Peso',font=('Helverica', 18))
+        entry_peso = customtkinter.CTkLabel(infos,text='4')
 
-    frame_status = tk.Frame(div,width= 250,height=200,borderwidth=10,relief=tk.RIDGE)
-    frame_status.grid_propagate(False)
-    frame_status.pack()
+        label_nome.grid(row=0,column=0,sticky='w', padx = 15)
+        entry_nome.grid(row=0,column=1,sticky='w')
+        label_sexo.grid(row=1,column=0,sticky='w', padx = 15)
+        entry_sexo.grid(row=1,column=1,sticky='w')
+        label_raca.grid(row=2,column=0,sticky='w', padx = 15)
+        entry_raca.grid(row=2,column=1,sticky='w')
+        label_idade.grid(row=3,column=0,sticky='w', padx = 15)
+        entry_idade.grid(row=3,column=1,sticky='w')
+        label_peso.grid(row=4,column=0,sticky='w', padx = 15)
+        entry_peso.grid(row=4,column=1,sticky='w')
+        
+        botão = customtkinter.CTkButton(self, text="Agendar", command='', fg_color="#402160", width=200, height=50, font=('Helverica', 18))
+        botão.grid(row=2, column=0)
 
-    root.columnconfigure((0,1),weight=1)
-    root.rowconfigure((0,1,2,3,4),weight=1)
+    def create_rounded_image(self):
+        # Load the image using Pillow
+        image = Image.open("img/jinx.jpg")
+        resized_image = image.resize((250, 250))
+        
+        # Create a round mask
+        width, height = resized_image.size
+        mask = Image.new("L", (width, height), 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0, width, height), fill=255)
 
-    label_nome = ttk.Label(frame_status, text='Nome',font=('Helverica', 20), background='#f2913d')
-    label_sexo = ttk.Label(frame_status,text='Sexo',font=('Helverica', 20), background='#f2913d')
-    label_raca = ttk.Label(frame_status,text='Raça',font=('Helverica', 20), background='#f2913d')
-    label_idade = ttk.Label(frame_status,text='Idade',font=('Helverica', 20), background='#f2913d')
-    label_peso = ttk.Label(frame_status,text='Peso',font=('Helverica', 20), background='#f2913d')
+        # Apply the mask to the resized image
+        rounded_image = Image.new("RGBA", (width, height))
+        rounded_image.paste(resized_image, (0, 0), mask)
 
-    label_nome.grid(row=0,column=0,sticky='w')
-    label_sexo.grid(row=1,column=0,sticky='w')
-    label_raca.grid(row=2,column=0,sticky='w')
-    label_idade.grid(row=3,column=0,sticky='w')
-    label_peso.grid(row=4,column=0,sticky='w')
+        # Convert the rounded image into a PhotoImage for display in Tkinter
+        rounded_image_tk = ImageTk.PhotoImage(rounded_image)
 
-    editButton = tk.Button(div, text='Cadastrar Vacinação', font=('Helverica', 10), bg='#f2913d')
-    editButton.pack()
-
-    #tema
-    style = ThemedStyle(root)
-    style.set_theme('clam')
-
-
-
-if __name__ == '__main__':
-
-    root = tk.Tk()
-    root.title('PetPlanner - Vacine seu pet')
-    root.minsize(1000,600)
-    #root.iconbitmap('logo.ico')
-    root_width = 1000
-    root_height = 700
-    display_width = root.winfo_screenwidth()
-    display_height = root.winfo_screenheight()
-
-    left = int(display_width / 2 - root_width / 2)
-    top = int(display_height / 2 - root_height / 2)
-    root.geometry(f'{root_width}x{root_height}+{left}+{top}')
-
-    perfil(root)
-    root.mainloop()
+        # Create a label to display the rounded image
+        label = customtkinter.CTkLabel(self, image=rounded_image_tk, text="")
+        label.image = rounded_image_tk  # Maintain a reference to prevent garbage collection
+        label.grid(row=0, column=0, padx=10, pady=10)
