@@ -12,8 +12,8 @@ class App(customtkinter.CTk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=5)
         
-        root_width = 1400 
-        root_height = 900
+        root_width = 1000 
+        root_height = 700
         display_width = self.winfo_screenwidth()
         display_height = self.winfo_screenheight()
         left = int(display_width / 2 - root_width / 2)
@@ -21,8 +21,8 @@ class App(customtkinter.CTk):
         self.geometry(f'{root_width}x{root_height}+{left}+{top}')
         self.title("PetPlanner - Vacine seu pet")
         self.iconbitmap('img/logo.ico')
-        self.minsize(1400,900)
-        self.maxsize(1400,900)
+        #self.minsize(1400,900)
+        #self.maxsize(1400,900)
         
         self.perfil = Perfil(master=self, fg_color="#9156CD")
         self.perfil.grid(row=0,rowspan=1, column=0,columnspan=1, padx=20, pady=20, sticky="nsew")
@@ -32,7 +32,5 @@ class App(customtkinter.CTk):
         
         
 root = App()
-
-
 root.mainloop()   
         
