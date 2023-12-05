@@ -1,7 +1,6 @@
 from customtkinter import *
 import tkinter as tk
 from petPerfil import Perfil
-from App import App
 
 class Login():
     def __init__(self,permissao=False):
@@ -40,17 +39,3 @@ class Login():
         entry_name.grid(row=1,column=0)
         entry_key.grid(row=2,column=0)
         button_entrar.grid(row=3,column=0)
-
-
-
-
-if __name__ == '__main__':
-
-    tela_config = App()
-    win = CTk()
-    tela_config.tela_configs(win)
-
-    lo = Login()
-    lo.login(win)
-
-    win.mainloop()
