@@ -3,6 +3,7 @@ import customtkinter
 from petPerfil import Perfil
 from petCalendario import Calendario
 from agendamento import Agendamento
+import tkinter as tk
 
 class App(customtkinter.CTk):
     def __init__(self):
