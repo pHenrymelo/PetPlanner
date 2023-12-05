@@ -4,7 +4,7 @@ import customtkinter as ctk
 import tkinter as tk
 from typing import Optional, Tuple, Union
 from PIL import Image
-
+from arrays import Array
 
 class Calendario(ctk.CTkFrame):
     def __init__(self, master: any, width: int = 200, height: int = 200, corner_radius: Union[int, str, None] = None, border_width: Union[int, str, None] = None, bg_color: Union[str, Tuple[str, str]] = "transparent", fg_color: Union[str, Tuple[str, str], None] = None, border_color: Union[str, Tuple[str, str], None] = None, background_corner_colors: Union[Tuple[str, Tuple[str, str]], None] = None, overwrite_preferred_drawing_method: str | None = None, **kwargs):
@@ -27,11 +27,18 @@ class Calendario(ctk.CTkFrame):
         self.frame.rowconfigure((1, 2, 3, 4, 5, 6, 7, 8), weight=1)
 
         # Substituir months_pt por uma lista válida de nomes dos meses em português
-        self.months_pt = [
+        temp_meses = [
             "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
         ]
-        self.day_names = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+        self.months_pt = Array(12)
+        for i in range(len(self.months_pt)):
+            self.months_pt[i] = temp_meses[i]
+        
+        temp_days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+        self.day_names = Array(7)
+        for i in range(len(self.day_names)):
+            self.day_names[i] = temp_days[i]
         
         prev_button = ctk.CTkButton(self, command=lambda: self.change_month(-1), fg_color='#402160',font=('Helverica', 15), width=30, height=55, corner_radius=120, text="<")
         prev_button.grid(row=1, column=0)
@@ -46,7 +53,7 @@ class Calendario(ctk.CTkFrame):
             col += 1
         
         self.label_h = ctk.CTkLabel(self, text=self.months_pt[self.month - 1], font=('Helverica', 24), fg_color='#402160', corner_radius=25)
-        self.label_h.grid(column=1, row=1, pady=5 , sticky="nsew")
+        self.label_h.grid(column=1, row=1, pady=5, sticky="nsew")
 
         self.year_label = ctk.CTkLabel(self, text=self.year, font=('Helverica', 24))
         self.year_label.grid(column=1, row=0, pady=15)
@@ -100,4 +107,3 @@ class Calendario(ctk.CTkFrame):
                     label_num = ctk.CTkLabel(self.frame, text='', width=50, height=50, fg_color='#402160', corner_radius=10, font=('Helverica', 15))
 
                 label_num.grid(row=x, column=y, sticky='nsew', padx=10, pady=5)
-
