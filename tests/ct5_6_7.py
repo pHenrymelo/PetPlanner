@@ -1,6 +1,5 @@
 from customtkinter import *
 import customtkinter
-from petPerfil import Perfil
 from petCalendario import Calendario
 
 class App(customtkinter.CTk):
@@ -23,13 +22,8 @@ class App(customtkinter.CTk):
         self.minsize(1000,700)
         self.maxsize(1000, 700)
         
-        self.perfil = Perfil(master=self, fg_color="#9156CD")
-        self.perfil.grid(row=0,rowspan=1, column=0,columnspan=1, padx=20, pady=20, sticky="nsew")
-                
         self.calendario = Calendario(master=self, fg_color="#9156CD")
-        self.calendario.grid(row=0,rowspan=1, column=1,columnspan=1, padx=20, pady=20, sticky="nsew")
-        
-        
+        self.calendario.grid(row=0,rowspan=1, column=0,columnspan=2, padx=20, pady=20, sticky="nsew")
+
 root = App()
-root.mainloop()   
-        
+root.mainloop() 
