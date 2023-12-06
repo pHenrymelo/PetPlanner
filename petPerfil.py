@@ -6,12 +6,12 @@ class Perfil(customtkinter.CTkFrame):
         super().__init__(master, **kwargs)
         self.grid_propagate(True)
         self.columnconfigure(0, weight=1)
-        self.rowconfigure((0,1,2), weight=1)
+        self.rowconfigure((0,1), weight=1)
         
         self.create_rounded_image()
 
         infos = customtkinter.CTkFrame(master=self, width=250, height=200, fg_color="#402160")
-        infos.grid(row= 1, column = 0, sticky='ns')
+        infos.grid(row= 1, column = 0, sticky='ns', pady= 20)
         infos.grid_propagate(False)
         infos.columnconfigure((0,1),weight=1)
         infos.rowconfigure((0,1,2,3,4),weight=1)
@@ -42,8 +42,6 @@ class Perfil(customtkinter.CTkFrame):
         label_peso.grid(row=4,column=0,sticky='w', padx = 15)
         entry_peso.grid(row=4,column=1,sticky='w')
         
-        botão = customtkinter.CTkButton(self, text="Agendar", command='', fg_color="#402160", width=200, height=50, font=('Helverica', 18))
-        botão.grid(row=2, column=0)
 
     def create_rounded_image(self):
         # Load the image using Pillow
