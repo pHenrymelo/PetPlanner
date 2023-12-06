@@ -40,6 +40,9 @@ class Calendario(ctk.CTkFrame):
         for i in range(len(self.day_names)):
             self.day_names[i] = temp_days[i]
         
+        temp_meses = None
+        temp_days = None
+        
         prev_button = ctk.CTkButton(self, command=lambda: self.change_month(-1), fg_color='#402160',font=('Helverica', 15), width=30, height=55, corner_radius=120, text="<")
         prev_button.grid(row=1, column=0)
 
@@ -100,10 +103,40 @@ class Calendario(ctk.CTkFrame):
                     num += 1
                 elif num <= num_dias:
                     button = ctk.CTkButton(self.frame, text=num, width=50, height=50, fg_color='#402160', corner_radius=10, font=('Helverica', 15))
-                    button.configure(command=lambda btn=button: self.select_day(btn))
+                    button.configure(command=self.agendar())
                     label_num = button
                     num += 1
                 else:
                     label_num = ctk.CTkLabel(self.frame, text='', width=50, height=50, fg_color='#402160', corner_radius=10, font=('Helverica', 15))
 
                 label_num.grid(row=x, column=y, sticky='nsew', padx=10, pady=5)
+                
+    def agendar(self):
+        agendamento = ctk.CTkToplevel()
+        
+        form = ctk.CTkFrame(agendamento)
+        form.grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
+        
+        title = ctk.CTkLabel(form, text='Titulo do agendamento:')
+        title.grid(row=0, column=0, padx = 20, pady = 20)
+        titleInput = ctk.CTkEntry(form, placeholder_text='insira o titulo do agendamento')
+        titleInput.grid(row=0, column=1, padx = 20,columnspan=3, pady = 20, sticky= 'ew')
+        
+        desc = ctk.CTkLabel(form, text='descrição do agendamento:')
+        desc.grid(row=1, column=0, padx = 20, pady = 20)
+        descInput = ctk.CTkTextbox(form)
+        descInput.grid(row=1, column=1, padx = 20, pady = 20,sticky= 'ew')
+        
+        
+        date = ctk.CTkLabel(form, text='data do agendamento:')
+        date.grid(row=2, column=0, padx = 20, pady = 20)
+        
+        dateFrame = ctk.CTkFrame(form)
+        dateFrame.grid(row=2, column=1, padx = 20, pady = 20)
+        
+        dayInput = ctk.CTkEntry(dateFrame, placeholder_text='dia')
+        dayInput.grid(row=0, column=0, padx = 5, pady = 5)
+        monthInput = ctk.CTkEntry(dateFrame, placeholder_text='mes')
+        monthInput.grid(row=0, column=1, padx = 5, pady = 5)
+        yearInput = ctk.CTkEntry(dateFrame, placeholder_text='ano')
+        yearInput.grid(row=0, column=2, padx = 5, pady = 5)
