@@ -98,12 +98,12 @@ class Calendario(ctk.CTkFrame):
                     label_num = ctk.CTkLabel(self.frame, text='', width=50, height=50, fg_color='#402160', corner_radius=10, font=('Helverica', 15))
                 elif num == self.day and self.month == datetime.datetime.now().month and self.year == datetime.datetime.now().year:
                     button = ctk.CTkButton(self.frame, text=num, width=50, height=50, fg_color='#5E17EB', corner_radius=10, font=('Helverica', 15))
-                    button.configure(command=lambda btn=button: self.select_day(btn))
+                    button.configure(command= self.agendar)
                     label_num = button
                     num += 1
                 elif num <= num_dias:
                     button = ctk.CTkButton(self.frame, text=num, width=50, height=50, fg_color='#402160', corner_radius=10, font=('Helverica', 15))
-                    button.configure(command=self.agendar())
+                    button.configure(command=self.agendar)
                     label_num = button
                     num += 1
                 else:
@@ -140,3 +140,11 @@ class Calendario(ctk.CTkFrame):
         monthInput.grid(row=0, column=1, padx = 5, pady = 5)
         yearInput = ctk.CTkEntry(dateFrame, placeholder_text='ano')
         yearInput.grid(row=0, column=2, padx = 5, pady = 5)
+        
+        def ok(titulo=titleInput, descri=descInput, dia=dayInput, mes=monthInput, ano=yearInput):
+            print(f"A vacina {titulo.get()}, referente a {descri.get('1.0', 'end-1c')}, foi marcada para o dia {dia.get()} de {mes.get()} de {ano.get()}")
+            agendamento.destroy()
+        confirmar = ctk.CTkButton(form,text='agendar', command= ok)
+        confirmar.grid(row = 3, column = 1, sticky= 'w')
+        cancelar = ctk.CTkButton(form,text='cancelar agendamento', command=agendamento.destroy, fg_color='red')
+        cancelar.grid(row = 3, column = 1, pady = 20)
